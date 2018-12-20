@@ -1,3 +1,4 @@
 #说明
-usb_skeleton.c  stm32实现usb设备驱动
-testusb.c       usb驱动测试应用程序
+usb_skeleton.c         stm32实现usb设备驱动
+testusb.c              usb驱动测试应用程序
+USB_DriverSTM32F103    stm32f103c8t6实现的USB设备单片机程序
