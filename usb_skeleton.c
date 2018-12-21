@@ -519,8 +519,9 @@ static int skel_probe(struct usb_interface *interface,
 	for (i = 0; i < iface_desc->desc.bNumEndpoints; ++i) {
 		endpoint = &iface_desc->endpoint[i].desc;
 
-		if (!dev->bulk_in_endpointAddr &&
-		    usb_endpoint_is_bulk_in(endpoint)) {
+//		if (!dev->bulk_in_endpointAddr &&
+//		    usb_endpoint_is_bulk_in(endpoint)) {
+		if (usb_endpoint_is_bulk_in(endpoint)) {
 			/* we found a bulk in endpoint */
 			buffer_size = usb_endpoint_maxp(endpoint);
 			dev->bulk_in_size = buffer_size;
@@ -537,12 +538,15 @@ static int skel_probe(struct usb_interface *interface,
 					"Could not allocate bulk_in_urb\n");
 				goto error;
 			}
+printk ("i[%d], in_endpointAddr[%d] \n", i, (unsigned int)(endpoint->bEndpointAddress));
 		}
 
-		if (!dev->bulk_out_endpointAddr &&
-		    usb_endpoint_is_bulk_out(endpoint)) {
+//		if (!dev->bulk_out_endpointAddr &&
+//		    usb_endpoint_is_bulk_out(endpoint)) {
+		if (usb_endpoint_is_bulk_out(endpoint)) {
 			/* we found a bulk out endpoint */
 			dev->bulk_out_endpointAddr = endpoint->bEndpointAddress;
+printk ("i[%d], out_endpointAddr[%d] \n", i, (unsigned int)(endpoint->bEndpointAddress));
 		}
 	}
 	if (!(dev->bulk_in_endpointAddr && dev->bulk_out_endpointAddr)) {
